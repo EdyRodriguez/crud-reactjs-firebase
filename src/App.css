@@ -7,6 +7,10 @@
   pointer-events: none;
 }
 
+.cardstyle{
+  width: 18rem; margin-left:2vh; background-color: #EEEEEE;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

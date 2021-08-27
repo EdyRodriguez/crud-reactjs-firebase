@@ -82,45 +82,39 @@ class App extends Component {
 
   render(){
     return (
-      <div className="App">
+      <div className="App" style={bodyStyle}>
         <h1 className="mt-5 mb-5">Game List</h1>
-        <button className="btn mb-5 btn-success" onClick={()=>this.setState({modalInsert:true})}>Insertar</button>
+        <button className="btn mb-5 btn-success" onClick={()=>this.setState({modalInsert:true})}>Insert</button>
         <br></br>
-        <table className="table table-bordered">
-          <thead>
-            <th>Title</th>
-            <th>Link</th>
-            <th>Description</th>
-            <th>Score</th>
-            <th>Price</th>
-            <th>Actions</th>
-          </thead>
-          <tbody>
-            {Object.keys(this.state.data).map(i=>{
+        <div className="container row mt-5" style={{margin:0}}>
+          {Object.keys(this.state.data).map(i=>{
               console.log(i)
-              return <tr key={i}>
-                <td>{this.state.data[i].title}</td>
-                <td><a href={`${this.state.data[i].image}`}>{this.state.data[i].image}</a></td>
-                <td>{this.state.data[i].description}</td>
-                <td>{this.state.data[i].score}</td>
-                <td>{this.state.data[i].price}</td>
-                <td>
+              return <div className="card p-3 mb-3 shadow rounded text-center " key={i} style={cardStyle} >
+              <div class="card-body" >
+                <h5 class="card-title"> {this.state.data[i].title}</h5>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"><a href={`${this.state.data[i].image}`}>{this.state.data[i].image}</a></li>
+                  <li class="list-group-item">{this.state.data[i].price}</li>
+                  <li class="list-group-item">{this.state.data[i].score}</li>
+                </ul>
+                <p class="card-text">{this.state.data[i].description}</p>
+                
                   <button className="btn btn-primary"  onClick={()=>this.selectedGame(this.state.data[i],i,'Edit')}>Edit</button> {""}
                   <button className="btn btn-danger" onClick={()=>this.selectedGame(this.state.data[i],i,'Delete')}>Delete</button>
-                </td>
-              </tr>
+               
+              </div>
+              </div>
             })}
-          </tbody>
-        </table>
+        </div>
         <Modal isOpen={this.state.modalInsert}>
-          <ModalHeader>Insert Game</ModalHeader>
-          <ModalBody>
-            <div className="form-group">
+          <ModalHeader style={modalStyle}>Insert Game</ModalHeader>
+          <ModalBody style={modalStyle}>
+            <div className="form-group" >
               <label>Game:</label>
               <br/>
               <input name="title" type="text" className="form-control" onChange={this.handleChange}/>
               <br/>
-              <label>Image link:</label>
+              <label>Game page link:</label>
               <br/>
               <input name="image" type="text" className="form-control" onChange={this.handleChange}/>
               <br/>
@@ -138,17 +132,17 @@ class App extends Component {
               <input name="price" type="text" className="form-control" onChange={this.handleChange}/>
             </div>
           </ModalBody>
-          <ModalFooter>
-            <button className="btn btn-primary" onClick={()=>this.petitionPost()}>Insertar</button>
-            <button className="btn btn-danger" onClick={()=>this.setState({modalInsert:false})}>Cancelar</button>
+          <ModalFooter style={modalStyle}>
+            <button className="btn btn-primary" onClick={()=>this.petitionPost()}>Insert</button>
+            <button className="btn btn-danger" onClick={()=>this.setState({modalInsert:false})}>Cancel</button>
             
           </ModalFooter>
         </Modal>
 
 
         <Modal isOpen={this.state.modalEdit}>
-          <ModalHeader>Edit Game</ModalHeader>
-          <ModalBody>
+          <ModalHeader style={modalStyle}>Edit Game</ModalHeader>
+          <ModalBody style={modalStyle}>
             <div className="form-group">
               <label>Game:</label>
               <br/>
@@ -172,7 +166,7 @@ class App extends Component {
               <input name="price" type="text" className="form-control" onChange={this.handleChange} value={this.state.form && this.state.form.price}/>
             </div>
           </ModalBody>
-          <ModalFooter>
+          <ModalFooter style={modalStyle}>
             <button className="btn btn-primary" onClick={()=>this.petitionPut()}>Accept</button>
             <button className="btn btn-danger" onClick={()=>this.setState({modalEdit:false})}>Cancelar</button>
             
@@ -183,5 +177,19 @@ class App extends Component {
   }
   
 }
+
+
+ const cardStyle= {
+    width: '18rem',
+    marginLeft:'2vh',
+    backgroundColor: '#EEEEEE',
+  }
+ const bodyStyle={
+  backgroundColor: '#334257',
+ }
+ 
+ const modalStyle={
+  backgroundColor: '#EEEEEE',
+ }
 
 export default App;
